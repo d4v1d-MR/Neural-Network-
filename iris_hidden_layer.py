@@ -2,7 +2,8 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
-
+graph = raw_input("Show errors graph (y/n): ")
+response = str(graph).strip()
 # Translate a list of labels into an array of 0's and one 1.
 # i.e.: 4 -> [0,0,0,0,1,0,0,0,0,0] 
 def one_hot(x, n):
@@ -63,6 +64,7 @@ print "----------------------"
 
 batch_size = 20
 
+errors[]
 for step in xrange(1000):
     for jj in xrange(len(x_data) / batch_size):
         batch_xs = x_data[jj*batch_size : jj*batch_size+batch_size]
@@ -71,11 +73,16 @@ for step in xrange(1000):
         sess.run(train, feed_dict={datos_entrada: batch_xs, datos_salida: batch_ys})
         if step % 50 == 0:
             error = sess.run(cross_entropy, feed_dict={datos_entrada: batch_xs, salida_neuronas_capa_oculta: batch_ys})
+            errors.append(error)
             print "Iteration #:", step, "Error: ", error
             result = sess.run(salida_capa_visible, feed_dict={datos_salida: batch_xs})
             for b, r in zip(batch_ys, result):
                 print b, "-->", r
             print "----------------------------------------------------------------------------------"
+
+if response == "y":
+    plt.plot(errors)
+    plt.show()
 
             
             
