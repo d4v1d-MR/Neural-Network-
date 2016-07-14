@@ -64,7 +64,7 @@ print "----------------------"
 
 batch_size = 20
 
-errors[]
+errors = []
 for step in xrange(1000):
     for jj in xrange(len(x_data) / batch_size):
         batch_xs = x_data[jj*batch_size : jj*batch_size+batch_size]
@@ -72,10 +72,10 @@ for step in xrange(1000):
 
         sess.run(train, feed_dict={datos_entrada: batch_xs, datos_salida: batch_ys})
         if step % 50 == 0:
-            error = sess.run(cross_entropy, feed_dict={datos_entrada: batch_xs, salida_neuronas_capa_oculta: batch_ys})
+            error = sess.run(cross_entropy, feed_dict={datos_entrada: batch_xs, datos_salida: batch_ys})
             errors.append(error)
             print "Iteration #:", step, "Error: ", error
-            result = sess.run(salida_capa_visible, feed_dict={datos_salida: batch_xs})
+            result = sess.run(salida_capa_visible, feed_dict={datos_entrada: batch_xs})
             for b, r in zip(batch_ys, result):
                 print b, "-->", r
             print "----------------------------------------------------------------------------------"
